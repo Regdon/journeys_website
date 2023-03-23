@@ -171,13 +171,11 @@
 
         //Check for valid station
         public function validStation($station_name) {
-            $this->db->query('
-                SELECT * FROM station WHERE station_name = :station_name
-            ');
-            $this->db->bind(':station_name', str_replace("'", "\'", $station_name));
+            $this->db->query("
+                SELECT * FROM station WHERE REPLACE(station_name, '''', '&#39;') = :station_name
+            ");            
+            $this->db->bind(':station_name', $station_name);
             $row = $this->db->singleRow();
-
-            echo var_dump($station_name);
 
             //check row
             if ($this->db->rowCount() > 0) {

@@ -30,8 +30,8 @@
                 LIMIT 10;           
             ");
 
-            echo 'aaaaaaa';
-            echo $search_param;
+            //echo 'aaaaaaa';
+            //echo $search_param;
 
             $this->db->bind(':search_param', str_replace("'", "\'", $search_param));
 

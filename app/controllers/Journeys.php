@@ -339,6 +339,8 @@
                 'search_station_code' => 'DEFAULT',
                 'search_operator_code' => 'DEFAULT',
 
+                'station_error' => '',
+
                 'results' => array(),
 
                 //Page variables
@@ -373,16 +375,20 @@
                     }
                 }
 
-                //Get Data
-                $results = $this->journeyModel->search($data['search_start_date'],$data['search_end_date'], $data['search_operator_code'], $data['search_station_code']);
-
-                foreach ($results as $key => $result) {
-                    $data['results'][$key] = $result;
+                //Check for valid Station (or NULL)
+                if ($data['station'] && ! $data['station_code']) {
+                    $data['station_error'] = 'Please enter a valid station, or leave blank for any station';
+                    $data['station'] = '';
                 }
 
-                //echo var_dump($_POST);
-                //echo '<br><br><br>';
-                echo var_dump($data);
+                //Get Data
+                if (empty($data['station_error'])) {
+                    $results = $this->journeyModel->search($data['search_start_date'],$data['search_end_date'], $data['search_operator_code'], $data['search_station_code']);
+
+                    foreach ($results as $key => $result) {
+                        $data['results'][$key] = $result;
+                    }
+                }
 
                 //Load view
                 $this->view('journeys/search', $data);

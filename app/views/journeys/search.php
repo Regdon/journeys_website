@@ -32,8 +32,9 @@
                     </div>
 
                     <div class = "form-group col-md-4">
-                        <lable for = "station">Station: </lable>
-                        <input type = "text" name = "station" class = "autocomplete form-control form-control-lg" value= "<?php echo $data['station']; ?>"> 
+                        <lable for = "start_station">Station: </lable>
+                        <input type = "text" name = "station" class = "autocomplete form-control form-control-lg <?php echo (!empty($data['station_error'])) ? 'is-invalid' : ''; ?> " value= "<?php echo $data['station']; ?>"> 
+                        <span class = "invalid-feedback"><?php echo $data['station_error']; ?></span>
                     </div>
 
                     <div class = "col-md-1">

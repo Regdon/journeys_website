@@ -23,4 +23,11 @@
         return 'Not a date';
     }
 
+    function fmt_percent($value) {
+        if (is_double($value)) {
+            return sprintf("%.1f%%", $value * 100);
+        }
+        return '#NaN';
+    }
+
 ?>

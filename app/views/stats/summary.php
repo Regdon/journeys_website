@@ -7,6 +7,10 @@
             <p>Chart showing the percentage of stations which have been visited, along with the percentage only called at and the percentage not yet visited at all.</p>
             <p>Total Currently Visited: <?php echo $data['visited_summary_visited'] . ' / ' . $data['visited_summary_total_stations'] . ' (' . fmt_percent($data['visited_summary_percentage_visited']) . ')'; ?> </p>
             <div id='visted_summary' style='width: 100%; height: 500px;'></div>
+
+            <p>Chart showing the percentage of stations which have been visited, along with the percentage only called at and the percentage not yet visited at all.</p>
+            <p>Total Currently Visited: <?php echo $data['visited_summary_visited'] . ' / ' . $data['visited_summary_total_stations'] . ' (' . fmt_percent($data['visited_summary_percentage_visited']) . ')'; ?> </p>
+            <div id='monthly_new_stations' style='width: 100%; height: 500px;'></div>
         </div>
     </div>
 </div>

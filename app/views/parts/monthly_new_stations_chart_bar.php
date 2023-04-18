@@ -1,0 +1,1 @@
+,['<?php echo $bar->month_description;?>',<?php echo $bar->count_of_stations;?>]

@@ -5,6 +5,7 @@
 <script type='text/javascript'>
     google.charts.load('current', {packages:['corechart']});
     google.charts.setOnLoadCallback(drawVisitedSummary);
+    google.charts.setOnLoadCallback(drawMonthlyNewStations);
 
     function drawVisitedSummary() {
         var data = google.visualization.arrayToDataTable([
@@ -24,6 +25,30 @@
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('visted_summary'));
+        chart.draw(data, options);
+    }
+
+    function drawMonthlyNewStations() {
+        var data = google.visualization.arrayToDataTable([
+            ['Month', 'New Stations']
+            <?php
+                for ($i=count($data['visited_by_month_data']); $i > 0 ; $i--) { 
+                    $bar = $data['visited_by_month_data'][$i - 1];
+                    include APPROOT . '/views/parts/monthly_new_stations_chart_bar.php';
+                }
+            ?>
+        ]);
+
+        var options = {
+            title: 'New Stations by Month',
+            legend: {position: 'none'},
+            bar: {groupWidth: '75%'},
+            series: {
+                0: { color: '#267F00' }, //Dark Green
+            }
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('monthly_new_stations'));
         chart.draw(data, options);
     }
 </script>

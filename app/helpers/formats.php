@@ -9,7 +9,7 @@
     }
 
     function fmt_int($value) {
-        if (is_int($value)) {
+        if (is_numeric($value)) {
             return number_format($value);
         }
         return '#NaN';

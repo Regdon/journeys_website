@@ -1,1 +1,1 @@
-,['<?php echo $bar->month_description;?>',<?php echo $bar->count_of_stations;?>]
+,['<?php echo $bar->month_description;?>',<?php if ($bar->count_of_stations >= $bar_target) {echo $bar->count_of_stations;} else {echo 0;}?>, <?php if ($bar->count_of_stations < $bar_target) {echo $bar->count_of_stations;} else {echo 0;}?>]

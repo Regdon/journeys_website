@@ -48,4 +48,44 @@
 
         }
 
+        public function map($centre_station_code = 'WRK') {
+
+            $data = [
+                'centre_station_code' => '',
+                'centre_station_name' => '',
+                'centre_station_error' => '',
+
+                'closest_stations' => array()
+                
+            ];
+
+            //Get and validate the centre station requested
+            $centre_station = $this->statsModel->validStationCode($centre_station_code);
+            if ($centre_station) {
+                $data['centre_station_code'] = $centre_station->station_code;
+                $data['centre_station_name'] = $centre_station->station_name;
+            } else {                
+                $data['centre_station_code'] = 'WRK';
+                $data['centre_station_name'] = 'Worksop';
+                $data['centre_station_error'] = 'Invalid station code requested: ' . $centre_station_code;
+            }
+
+            //Get the 400 closest stations
+            $closest_stations = $this->statsModel->closestStations($data['centre_station_code']);
+            
+            foreach ($closest_stations as $key => $value) {
+                $station = [
+                    'station_code' => $value->station_code,
+                    'station_name' => $value->station_name,
+                    'longitude' => $value->station_longitude,
+                    'latitude' => $value->station_latitude,
+                    'status' => $value->status
+                ];
+                $data['closest_stations'][$key] = $station;
+            }
+
+            //echo var_dump($data);
+            $this->view('stats/map', $data);
+        }
+
     }

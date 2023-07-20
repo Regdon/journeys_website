@@ -48,16 +48,39 @@
 
         }
 
-        public function map($centre_station_code = 'WRK') {
+        public function map($centre_station_code = 'DEFAULT') {
 
             $data = [
                 'centre_station_code' => '',
                 'centre_station_name' => '',
                 'centre_station_error' => '',
 
-                'closest_stations' => array()
-                
+                'closest_stations' => array(),
+
+                'choose_station' => '',
+                'choose_station_code' => '',
+                'choose_station_error' => ''                
             ];
+
+            //Check for POST station submission
+            if($_SERVER['REQUEST_METHOD'] == 'POST' && $centre_station_code == 'DEFAULT') {
+                $data['choose_station'] = trim($_POST['choose_station']);
+
+                //Validate chosen station
+                if (empty($data['choose_station'])) {
+                    $data['choose_station_error'] = 'Please enter a station';
+                } else {
+                    $data['choose_station_code'] = $this->statsModel->validStation($data['choose_station']);
+                    if (!$data['choose_station_code']) {
+                        $data['choose_station_error'] = 'Please enter a valid station';
+                    }
+                }
+
+                //Valid, use code
+                if(empty($data['choose_station_error'])) {
+                    $centre_station_code = $data['choose_station_code'];
+                }
+            }
 
             //Get and validate the centre station requested
             $centre_station = $this->statsModel->validStationCode($centre_station_code);

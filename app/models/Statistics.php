@@ -192,5 +192,21 @@
 
             return $data;
         }
+
+        //Check for valid station
+        public function validStation($station_name) {
+            $this->db->query("
+                SELECT * FROM station WHERE REPLACE(station_name, '''', '&#39;') = :station_name
+            ");            
+            $this->db->bind(':station_name', $station_name);
+            $row = $this->db->singleRow();
+
+            //check row
+            if ($this->db->rowCount() > 0) {
+                return $row -> station_code;
+            } else {
+                return false;
+            }
+        }
     
     }

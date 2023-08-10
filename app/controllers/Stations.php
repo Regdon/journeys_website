@@ -54,7 +54,11 @@
                 'first_call_date' => '',
 
                 //Journey History
-                'journey_history' => array()
+                'journey_history' => array(),
+
+                //Images
+                'image_url' => array(),
+                'image_dir' => ''
             ];
 
             //Query to get basic station data
@@ -105,6 +109,16 @@
                 $data['journey_history'][$key] = $temp;
             }
 
+            //Script to search folder for images
+            $data['image_dir'] = '../public/images/' . $data['station_name'] .'/';
+            if (is_dir($data['image_dir'])) {
+                $data['image_url'] = scandir($data['image_dir']);
+                if ($data['image_url']) {
+                    unset($data['image_url'][0]);
+                    unset($data['image_url'][1]);
+                    shuffle($data['image_url']);
+                }
+            }
 
             //echo var_dump($data);
             //Output data to view

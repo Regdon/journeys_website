@@ -9,6 +9,13 @@
             <p>First Called: <?php if($data['first_call_date']) {echo fmt_date($data['first_call_date']);} else {echo 'Not Called';}?></p>
             <p>Station Usage: <?php echo fmt_int($data['station_usage']);?> (Rank <?php echo fmt_int($data['station_rank']);?>)</p>
 
+            <?php
+                //Image carousel
+                if ($data['image_url']) {
+                    include APPROOT . '/views/parts/image_carousel.php';
+                }
+            ?>
+
             <h3>Recent Journeys</h3>
             <?php
                 $last_date = '';

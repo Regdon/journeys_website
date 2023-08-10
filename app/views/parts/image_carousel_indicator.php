@@ -1,0 +1,1 @@
+<li data-target="#myCarousel" data-slide-to="<?php echo $id;?>"<?php if ($id === 0) {echo ' class="active"';}?>></li>
